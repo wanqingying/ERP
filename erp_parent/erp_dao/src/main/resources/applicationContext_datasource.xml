@@ -51,7 +51,7 @@
 		
 		<property name="mappingResources">
 			<list>
-				<value>com/wan/erp/entity/Dep.hbm.xml</value>
+				<value>com/wan/erp/entity/*.hbm.xml</value>
 			</list>
 		</property>
 	</bean>
