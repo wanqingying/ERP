@@ -8,7 +8,7 @@ $('#depList').datagrid({
         {field:'-',title:'操作',width:100,
             formatter: function(value,row,index){
                 return `<a href="javascript:void(0)" onclick="edit(${row.uuid})">编辑 </a>`+
-                `  <a href="javascript:void(0)" onclick="del(${row.uuid})"> 删除</a>`;
+                ` <a href="javascript:void(0)" onclick="del(${row.uuid})"> 删除</a>`;
             }
         },
     ]],
@@ -118,14 +118,14 @@ $("#btnedit").on("click",function(e){
 function edit(uuid){
     $("#editDep").dialog("open");
     $("#editform").form("clear");
-    $("#editform").form("load","dep_get?dep.uuid="+uuid);
+    $("#editform").form("load","dep_get?uuid="+uuid);
 
 
 }
 function del(uuid){
     $.messager.confirm('确认', '您想删除此部门吗？', function(yes){
         if (yes){
-            $.post("dep_delete",{"dep.uuid":uuid},function(res){call2(res)},"json");
+            $.post("dep_delete",{"uuid":uuid},function(res){call2(res)},"json");
             function call2(res){
                 $.messager.show({
                     title:'删除结果',
