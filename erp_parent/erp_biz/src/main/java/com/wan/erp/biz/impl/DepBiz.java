@@ -31,5 +31,12 @@ public class DepBiz implements IDepBiz {
 	}
 
 
+	@Override
+	public List<Dep> getList(Dep dep1) {
+		
+		return depDao.getList(dep1);
+	}
+
+
 
 }

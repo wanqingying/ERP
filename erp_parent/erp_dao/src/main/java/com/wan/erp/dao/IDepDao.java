@@ -8,4 +8,7 @@ public interface IDepDao {
 	
 	public List<Dep> getList();
 	
+	public List<Dep> getList(Dep dep1);
+	
+	
 }

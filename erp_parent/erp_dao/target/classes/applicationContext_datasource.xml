@@ -49,10 +49,13 @@
 			</props>
 		</property>
 		
-		<property name="mappingResources">
+		<!-- <property name="mappingResources">
 			<list>
 				<value>com/wan/erp/entity/Dep.hbm.xml</value>
 			</list>
+		</property> -->
+		<property name="mappingLocations">
+			<value>classpath:com/wan/erp/entity/*.hbm.xml</value>
 		</property>
 	</bean>
 	

@@ -45,5 +45,9 @@ public class Dep {
 	public Dep() {
 		super();
 	}
+	@Override
+	public String toString() {
+		return "Dep [uuid=" + uuid + ", name=" + name + ", tele=" + tele + "]";
+	}
 	
 }

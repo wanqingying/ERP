@@ -14,5 +14,7 @@ public interface IDepBiz {
 	 * 查询所有部门列表
 	 */
 	List<Dep> getList();
+	//	条件查询：属性驱动
+	List<Dep> getList(Dep dep1);
 	
 }
