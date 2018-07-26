@@ -5,28 +5,66 @@
 <title>部门管理</title>
 <link rel="stylesheet" type="text/css" href="./statics/ui/themes/default/easyui.css">
 <link rel="stylesheet" type="text/css" href="./statics/ui/themes/icon.css">
+<link rel="stylesheet" type="" href="./statics/css/base.css">
 <script type="text/javascript" src="./statics/ui/jquery.min.js"></script>
 <script type="text/javascript" src="statics/ui/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="statics/ui/locale/easyui-lang-zh_CN.js"></script>
-
+<script type="text/javascript" src="./statics/js/jquery.serializejson.js"></script>
 </head>
 <body>
     <form id="searchForm">
         <div>
-            <label for="">部门名称</label>
+            <label for="">部门名称:</label>
             <input type="text" name="dep1.name">
         </div>
         <div>
-            <label for="">部门电话</label>
+            <label for="">部门电话:</label>
             <input type="text" name="dep1.tele">
         </div>
         <div>
-            <button>查询</button>
+            <button id="btnsearch">查询</button>
         </div>
-
     </form>
+    
     <table id="depList"></table>
 
+    <div id="addcontent">
+        <div id="addDep">
+            <form id="addform" action="">
+                <div>
+                    <label for="">部门名称:</label>
+                    <input type="text" name="dep.name">
+                </div>
+                <div>
+                    <label for="">部门电话:</label>
+                    <input type="text" name="dep.tele">
+                </div>
+                <div>
+                    <button id="btnadd">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="editDep">
+            <form id="editform" action="">
+                <div>
+                        <label for="">部门编号:</label>
+                        <input type="text" name="dep.uuid" readonly>
+                </div>
+                <div>
+                    <label for="">部门名称:</label>
+                    <input type="text" name="dep.name" >
+                </div>
+                <div>
+                    <label for="">部门电话:</label>
+                    <input type="text" name="dep.tele">
+                </div>
+                <div>
+                    <button id="btnedit">保存</button>
+                </div>
+            </form>
+        </div>
 	
     <script type="text/javascript" src="./statics/js/dep.js"></script>
 </body>
