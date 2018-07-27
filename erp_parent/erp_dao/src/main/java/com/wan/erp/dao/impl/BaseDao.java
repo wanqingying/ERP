@@ -67,7 +67,8 @@ public class BaseDao <T> extends HibernateDaoSupport implements IBaseDao<T> {
 	//查找编辑
 	@Override
 	public T get(Long id) {
-		return this.getHibernateTemplate().get(entityClass, id);
+		T res = this.getHibernateTemplate().get(entityClass, id);
+		return res;
 	}
 	
 	//更新

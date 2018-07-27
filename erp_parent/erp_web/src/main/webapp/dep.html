@@ -26,10 +26,10 @@
         </div>
     </form>
     
-    <table id="depList"></table>
+    <table id="modList"></table>
 
     <div id="addcontent">
-        <div id="addDep">
+        <div id="addDiv">
             <form id="addform" action="">
                 <div>
                     <label for="">部门名称:</label>
@@ -46,7 +46,7 @@
         </div>
     </div>
 
-    <div id="editDep">
+    <div id="editDiv">
             <form id="editform" action="">
                 <div>
                         <label for="">部门编号:</label>
@@ -65,7 +65,25 @@
                 </div>
             </form>
         </div>
-	
-    <script type="text/javascript" src="./statics/js/dep.js"></script>
+        
+    <script>
+        let mod={
+            url:"dep_",
+            name:"部门",
+            id:"uuid",
+            columns:[[    
+                                {field:'uuid',title:'部门编号',width:100},    
+                                {field:'name',title:'部门名称',width:100},    
+                                {field:'tele',title:'部门电话',width:100},
+                                {field:'-',title:'操作',width:100,
+                                    formatter: function(value,row,index){
+                                        return `<a href="javascript:void(0)" onclick="edit(${row.uuid})">编辑 </a>`+
+                                        ` <a href="javascript:void(0)" onclick="del(${row.uuid})"> 删除</a>`;
+                                    }
+                                },
+                            ]],
+        }
+    </script>
+    <script type="text/javascript" src="./statics/js/crud.js"></script>
 </body>
 </html>
