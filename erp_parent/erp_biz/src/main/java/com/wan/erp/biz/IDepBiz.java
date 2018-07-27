@@ -13,6 +13,4 @@ import com.wan.erp.entity.Dep;
 @SuppressWarnings("rawtypes")
 public interface IDepBiz extends IBaseBiz<Dep> {
 	
-	 //查询所有部门列表
-	List<Dep> getList();
 }

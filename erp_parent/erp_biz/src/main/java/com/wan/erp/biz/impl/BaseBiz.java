@@ -10,57 +10,66 @@ public class BaseBiz<T> implements IBaseBiz<T> {
 	 * 注入数据访问对象
 	 */
 	@SuppressWarnings("rawtypes")
-	private IBaseDao baseDao;
+	private IBaseDao<T> baseDao;
 	 
+	public void setBaseDao(IBaseDao<T> baseDao) {
+		this.baseDao = baseDao;
+	}
+
 	
-
-	public void setBaseDao(IBaseDao baseDao) {
-		this.baseDao = baseDao;
+	//条件查询
+	public List<T> getList(T t1,T t2,Object param){
+		return baseDao.getList(t1,t2,param);
+	}
+	
+	/**
+	 * 分页条件查询
+	 * @param t1
+	 * @return
+	 */
+	public List<T> getListByPage(T t1,T t2,Object param,int firstResult, int maxResults){
+		return baseDao.getListByPage(t1,t2,param,firstResult, maxResults);
 	}
 
-	@SuppressWarnings("rawtypes")
-	public void setTDao(IBaseDao baseDao) {
-		this.baseDao = baseDao;
-	}
-
-	//带条件分页查询
-	@SuppressWarnings("unchecked")
 	@Override
-	public Map<String, Object> getList(T ent1, int startind, int rows,T ent2 ,Object param) {
-		Map<String, Object> data=new HashMap<>();
-		int total=baseDao.countall(ent1);
-		List<T> list = baseDao.getList(ent1, startind, rows);
-		data.put("rows", list);
-		data.put("total", total);
-		return data;
+	public long getCount(T t1,T t2,Object param) {
+		return baseDao.getCount(t1,t2,param);
 	}
 
-	//新增部门
-	@SuppressWarnings("unchecked")
 	@Override
-	public void save(T t) {
-		baseDao.save(t);
-		
+	public void add(T t) {
+		baseDao.add(t);
 	}
 
-	//删除部门
-	@Override
-	public void delete(Long id) {
-		baseDao.delete(id);
-		
+	/**
+	 * 删除
+	 */
+	public void delete(Long uuid){
+		baseDao.delete(uuid);
 	}
-
-	//查找部门编辑
-	@SuppressWarnings("unchecked")
-	@Override
-	public T get(Long id) {
-		return (T) baseDao.get(id);
+	
+	/**
+	 * 通过编号查询对象
+	 * @param uuid
+	 * @return
+	 */
+	public T get(Long uuid){
+		return baseDao.get(uuid);
 	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public void update(T ent) {
-		baseDao.update(ent);
-		
+	
+	/**
+	 * 通过字符串编号查询对象
+	 * @param uuid
+	 * @return
+	 */
+	public T get(String uuid){
+		return baseDao.get(uuid);
+	}
+	
+	/**
+	 * 更新
+	 */
+	public void update(T t){
+		baseDao.update(t);
 	}
 }

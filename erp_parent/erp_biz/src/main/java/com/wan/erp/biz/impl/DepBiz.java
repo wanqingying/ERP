@@ -15,28 +15,14 @@ import com.wan.erp.entity.Dep;
  */
 public class DepBiz extends BaseBiz<Dep> implements IDepBiz {
 	
-	/*
-	 * 注入数据访问对象
-	 */
+	
+	//注入数据访问对象
 	private IDepDao depDao;
-	 
-
+	
 	public void setDepDao(IDepDao depDao) {
 		this.depDao = depDao;
-		super.setBaseDao(depDao);
+		super.setBaseDao(this.depDao);
 	}
-
-	//查询所有部门
-	@Override
-	public List<Dep> getList() {
-		return depDao.getList();
-	}
-
-
-
-
 	
-	
-
 
 }

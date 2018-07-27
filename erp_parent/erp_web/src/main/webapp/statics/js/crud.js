@@ -1,7 +1,9 @@
+console.log(mod)
+console.log(mod.url)
 
 // 加载列表
 $('#modList').datagrid({    
-    url:`${mod.url}getList.action`,    
+    url:`${mod.url}listByPage.action`,    
     columns:mod.columns,
     pagination:true,    
     toolbar: [{
@@ -14,7 +16,7 @@ $('#modList').datagrid({
 });  
 
 // 条件查询
-$("#btnsearch").click(function(e){
+$("#btnSearch").click(function(e){
     e.preventDefault();
     let formdata=$("#searchForm").serializeJSON();
     $("#modList").datagrid("load",formdata);
@@ -45,7 +47,7 @@ $("#btnadd").on("click",function(e){
     e.preventDefault();
     let data=$("#addform").serializeJSON();
     $.ajax({
-        url:`${mod.url}save`,
+        url:`${mod.url}add`,
         data:data,
         type:"post",
         dataType:"json",

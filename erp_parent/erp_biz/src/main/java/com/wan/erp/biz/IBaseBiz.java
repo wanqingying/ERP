@@ -10,18 +10,25 @@ import java.util.Map;
  */
 public interface IBaseBiz <T> {
 	
-	//	条件查询：属性驱动
-	Map<String, Object> getList(T ent, int startind, int rows, T ent2, Object param);
+	//条件查询
+	List<T> getList(T t1,T t2,Object param);
+	
+	//分页条件查询
+	List<T> getListByPage(T t1,T t2,Object param,int firstResult, int maxResults);
+	
+	//计算总记录数
+	public long getCount(T t1,T t2,Object param);
 	
 	//新增
-	public void save(T t);
+	public void add(T t);
 	
 	//删除
 	public void delete(Long id);
 
-	//查找编辑
+	//查找
 	T get(Long id);
+	T get(String id);
 
 	//更新
-	void update(T ent);
+	void update(T t);
 }
