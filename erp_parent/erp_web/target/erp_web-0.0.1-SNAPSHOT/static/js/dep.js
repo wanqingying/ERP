@@ -1,9 +1,0 @@
-alert('ok');
-$('#depList').datagrid({    
-    url:'dep_list.action',    
-    columns:[[    
-        {field:'uuid',title:'部门编号',width:100},    
-        {field:'name',title:'部门名称',width:100},    
-        {field:'tele',title:'部门电话',width:100,align:'right'}    
-    ]]    
-});  
