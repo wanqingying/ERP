@@ -4,9 +4,7 @@ import java.util.List;
 
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
-import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 
 import com.wan.erp.dao.IDepDao;
 import com.wan.erp.entity.Dep;

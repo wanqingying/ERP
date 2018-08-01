@@ -1,9 +1,5 @@
 package com.wan.erp.biz.impl;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.wan.erp.biz.IDepBiz;
 import com.wan.erp.dao.IDepDao;
 import com.wan.erp.entity.Dep;

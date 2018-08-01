@@ -16,7 +16,8 @@
         <property name="ender" /> 
         <property name="storeuuid" /> 
         <property name="state" /> 
-        <property name="ordersuuid" /> 
+        
+        <many-to-one name="orders" column="ordersuuid" class="com.wan.erp.entity.Orders" />
  
     </class>
 </hibernate-mapping>

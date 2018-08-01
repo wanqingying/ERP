@@ -3,9 +3,11 @@ package com.wan.erp.dao.impl;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
+
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Projections;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
+
 import com.wan.erp.dao.IBaseDao;
 
 public class BaseDao<T> extends HibernateDaoSupport implements IBaseDao<T> {
@@ -38,6 +40,7 @@ public class BaseDao<T> extends HibernateDaoSupport implements IBaseDao<T> {
 	 * @param maxResults 查询条数
 	 * @return 返回实体列表
 	 */
+	@SuppressWarnings("unchecked")
 	public List<T> getListByPage(T t1,T t2,Object param,int firstResult, int maxResults) {
 		DetachedCriteria dc = getDetachedCriteria(t1,t2,param);
 		return (List<T>) this.getHibernateTemplate().findByCriteria(dc,firstResult, maxResults);

@@ -1,8 +1,5 @@
 package com.wan.erp.biz;
 
-import java.util.List;
-import java.util.Map;
-
 import com.wan.erp.entity.Dep;
 
 /**
@@ -10,7 +7,6 @@ import com.wan.erp.entity.Dep;
  * @author imwan
  *
  */
-@SuppressWarnings("rawtypes")
 public interface IDepBiz extends IBaseBiz<Dep> {
 	
 }

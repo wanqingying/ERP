@@ -1,9 +1,23 @@
 package com.wan.erp.entity;
+
+import java.util.List;
+
 /**
  * 订单实体类
  * @author Administrator *
  */
 public class Orders {	
+	//订单状态
+	public static final String STATE_CREATE="0";//未审核
+	public static final String STATE_CHECK="1";//已审核
+	public static final String STATE_START="2";//已确认
+	public static final String STATE_END="3";//已入库
+	
+	//订单类别
+	public static final String TYPE_IN="1";//采购订单
+	public static final String TYPE_OUT="2";//销售订单
+	
+	
 	private Long uuid;//编号
 	private java.util.Date createtime;//生成日期
 	private java.util.Date checktime;//审核日期
@@ -18,7 +32,14 @@ public class Orders {
 	private Double totalmoney;//合计金额
 	private String state;//采购: 0:未审核 1:已审核, 2:已确认, 3:已入库；销售：0:未出库 1:已出库
 	private Long waybillsn;//运单号
-
+	private List<Orderdetail> orderDetails;
+	
+	public List<Orderdetail> getOrderDetails() {
+		return orderDetails;
+	}
+	public void setOrderDetails(List<Orderdetail> orderDetails) {
+		this.orderDetails = orderDetails;
+	}
 	public Long getUuid() {		
 		return uuid;
 	}
@@ -103,5 +124,13 @@ public class Orders {
 	public void setWaybillsn(Long waybillsn) {
 		this.waybillsn = waybillsn;
 	}
-
+	@Override
+	public String toString() {
+		return "Orders [uuid=" + uuid + ", createtime=" + createtime + ", checktime=" + checktime + ", starttime="
+				+ starttime + ", endtime=" + endtime + ", type=" + type + ", creater=" + creater + ", checker="
+				+ checker + ", starter=" + starter + ", ender=" + ender + ", supplieruuid=" + supplieruuid
+				+ ", totalmoney=" + totalmoney + ", state=" + state + ", waybillsn=" + waybillsn + ", orderDetails="
+				+ orderDetails + "]";
+	}
+	
 }

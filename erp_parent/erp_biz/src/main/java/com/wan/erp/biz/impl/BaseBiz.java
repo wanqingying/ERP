@@ -1,15 +1,13 @@
 package com.wan.erp.biz.impl;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 import com.wan.erp.biz.IBaseBiz;
 import com.wan.erp.dao.IBaseDao;
 public class BaseBiz<T> implements IBaseBiz<T> {
 	/*
 	 * 注入数据访问对象
 	 */
-	@SuppressWarnings("rawtypes")
 	private IBaseDao<T> baseDao;
 	 
 	public void setBaseDao(IBaseDao<T> baseDao) {

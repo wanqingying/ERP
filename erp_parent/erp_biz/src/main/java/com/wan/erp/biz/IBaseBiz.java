@@ -1,7 +1,6 @@
 package com.wan.erp.biz;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * 通用业务接口

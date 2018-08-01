@@ -20,6 +20,10 @@
         <property name="totalmoney" /> 
         <property name="state" /> 
         <property name="waybillsn" /> 
- 
+ 		
+ 		<bag name="orderDetails" cascade="save-update" inverse="true">
+ 			<key column="ordersuuid"></key>
+ 			<one-to-many class="com.wan.erp.entity.Orderdetail"/>
+ 		</bag>
     </class>
 </hibernate-mapping>

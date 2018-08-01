@@ -1,7 +1,6 @@
 package com.wan.erp.dao.impl;
 import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.MatchMode;
-import org.hibernate.criterion.Restrictions;
+
 import com.wan.erp.dao.IMenuDao;
 import com.wan.erp.entity.Menu;
 /**

@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
+
 import com.wan.erp.dao.IEmpDao;
 import com.wan.erp.entity.Emp;
 /**
@@ -22,14 +23,13 @@ public class EmpDao extends BaseDao<Emp> implements IEmpDao {
 	 * @param pwd
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	public Emp findByUsernameAndPwd(String username, String pwd){
 		String hql = "from Emp where username=? and pwd=?";		
 		List<Emp> list = (List<Emp>) this.getHibernateTemplate().find(hql, username, pwd);
-		//能够匹配上，则返回第一个元素
 		if(list.size() > 0){
 			return list.get(0);
 		}
-		//如果登陆名或密码不正确
 		return null;
 	}
 
@@ -65,11 +65,14 @@ public class EmpDao extends BaseDao<Emp> implements IEmpDao {
 			if(null != emp1.getDep() && null != emp1.getDep().getUuid()){
 				dc.add(Restrictions.eq("dep", emp1.getDep()));
 			}
+			
+			if(null !=emp1.getGender() && emp1.getGender().toString().trim().length()>0){
+				dc.add(Restrictions.eq("gender", emp1.getGender()));
+			}
 			//出生年月日查询 起始日期
 			if(null != emp1.getBirthday()){
 				dc.add(Restrictions.ge("birthday", emp1.getBirthday()));
 			}
-
 		}
 		if(null != emp2){
 			//出生年月日查询 结束日期

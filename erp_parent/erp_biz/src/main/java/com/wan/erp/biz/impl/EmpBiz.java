@@ -4,6 +4,7 @@ import org.apache.shiro.crypto.hash.Md5Hash;
 import com.wan.erp.biz.IEmpBiz;
 import com.wan.erp.dao.IEmpDao;
 import com.wan.erp.entity.Emp;
+import com.wan.erp.exception.ErpException;
 /**
  * 员工业务逻辑类
  * @author Administrator
@@ -29,7 +30,6 @@ public class EmpBiz extends BaseBiz<Emp> implements IEmpBiz {
 	public Emp findByUsernameAndPwd(String username, String pwd){
 		//查询前先加密
 		pwd = encrypt(pwd, username);
-		System.out.println(pwd);
 		return empDao.findByUsernameAndPwd(username, pwd);
 	}
 
@@ -44,7 +44,7 @@ public class EmpBiz extends BaseBiz<Emp> implements IEmpBiz {
 		//旧密码是否正确的匹配
 		if(!encrypted.equals(emp.getPwd())){
 			//抛出 自定义异常
-//			throw  Exception("旧密码不正确");
+			throw  new ErpException("旧密码不正确");
 		}		
 		empDao.updatePwd(uuid, encrypt(newPwd,emp.getUsername()));
 	}
@@ -55,16 +55,13 @@ public class EmpBiz extends BaseBiz<Emp> implements IEmpBiz {
 	public void add(Emp emp){
 		//String pwd = emp.getPwd();
 		// source: 原密码
-		// salt:   盐 =》扰乱码
+		// salt:扰乱码
 		// hashIterations: 散列次数，加密次数
-		//Md5Hash md5 = new Md5Hash(pwd, emp.getUsername(), hashIterations);
-		//取出加密后的密码
 		//设置初始密码
 		String newPwd = encrypt(emp.getUsername(), emp.getUsername());
 		//System.out.println(newPwd);
 		//设置成加密后的密码
 		emp.setPwd(newPwd);
-		//保存到数据库中
 		super.add(emp);
 	}
 	

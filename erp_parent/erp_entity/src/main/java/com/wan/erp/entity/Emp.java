@@ -80,5 +80,13 @@ public class Emp {
 	public void setBirthday(java.util.Date birthday) {
 		this.birthday = birthday;
 	}
+	@Override
+	public String toString() {
+		return "Emp [uuid=" + uuid + ", username=" + username + ", pwd=" + pwd + ", name=" + name + ", gender=" + gender
+				+ ", email=" + email + ", tele=" + tele + ", address=" + address + ", birthday=" + birthday + ", dep="
+				+ dep + "]";
+	}
 
+
+	
 }

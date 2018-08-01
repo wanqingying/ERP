@@ -1,6 +1,4 @@
 package com.wan.erp.biz;
-import java.util.List;
-
 import com.wan.erp.entity.Emp;
 /**
  * 员工业务逻辑层接口
