@@ -2,6 +2,7 @@
 window.onload = function(){
 	$('#loading-mask').fadeOut();
 }
+
 var onlyOpenTitle="欢迎使用";//不允许关闭的标签的标题
 
 var _menus={
@@ -11,12 +12,19 @@ var _menus={
 		"menus":
 			[
 			 	{
-			 		"icon":"icon-sys","menuid":"100","menuname":"基础数据","menus":
+			 		"icon":"icon-sys","menuid":"100","menuname":"人事管理","menus":
 					[
-						{"icon":"icon-sys","menuid":"101","menuname":"商品类型管理","url":"goodstype.html"}	,
-						{"icon":"icon-sys","menuid":"102","menuname":"商品管理","url":"goods.html"}						
+						{"icon":"icon-sys","menuid":"101","menuname":"员工管理","url":"emp.html"}	,
+						{"icon":"icon-sys","menuid":"102","menuname":"部门管理","url":"dep.html"}
 					]
-			 	}
+			 	},
+				{
+			 		"icon":"icon-sys","menuid":"200","menuname":"基础数据","menus":
+					[
+						{"icon":"icon-sys","menuid":"201","menuname":"商品类型管理","url":"goodstype.html"}	,
+						{"icon":"icon-sys","menuid":"202","menuname":"商品管理","url":"goods.html"}
+					]
+			 	},
 			 ]
 		};
 
@@ -28,18 +36,25 @@ $(function(){
 	//显示登陆用户名
 	showName();
 	//获取菜单数据
+	$.post("menu_getMenuTree",{},function (res) {
+        //给菜单赋值
+        _menus=res;
+        InitLeftMenu();
+    },"json");
+	/*
 	$.ajax({
 		url: 'menu_getMenuTree',
 		type: 'post',
 		dataType: 'json',
 		success: function(rtn){
 			//给菜单赋值
-			_menus=rtn;
+			// _menus=rtn;
 			InitLeftMenu();
 		}
-	});
+	});*/
 	tabClose();
 	tabCloseEven();
+
 	//安全退出 
 	$('#loginOut').bind('click',function(){
 		$.ajax({
@@ -50,11 +65,9 @@ $(function(){
 		});
 	});
 	
-})
+});
 
-/**
- * 显示登陆用户名
- */
+ // 显示登陆用户名
 function showName(){
 	$.ajax({
 		url: 'login_showName',
@@ -80,28 +93,14 @@ function showName(){
 function InitLeftMenu() {
 	$("#nav").accordion({animate:false,fit:true,border:false});
 	var selectedPanelname = '';
-	
 	    $.each(_menus.menus, function(i, n) {
 			var menulist ='';
 			menulist +='<ul class="navlist">';
 	        $.each(n.menus, function(j, o) {
 				menulist += '<li><div ><a ref="'+o.menuid+'" href="#" rel="' + o.url + '" ><span class="icon '+o.icon+'" >&nbsp;</span><span class="nav">' + o.menuname + '</span></a></div> ';
-				/*
-				if(o.child && o.child.length>0)
-				{
-					//li.find('div').addClass('icon-arrow');
-	
-					menulist += '<ul class="third_ul">';
-					$.each(o.child,function(k,p){
-						menulist += '<li><div><a ref="'+p.menuid+'" href="#" rel="' + p.url + '" ><span class="icon '+p.icon+'" >&nbsp;</span><span class="nav">' + p.menuname + '</span></a></div> </li>'
-					});
-					menulist += '</ul>';
-				}
-				*/
 				menulist+='</li>';
-	        })
+	        });
 			menulist += '</ul>';
-	
 			$('#nav').accordion('add', {
 	            title: n.menuname,
 	            content: menulist,
@@ -113,7 +112,7 @@ function InitLeftMenu() {
 				selectedPanelname =n.menuname;
 	
 	    });
-	
+
 	$('#nav').accordion('select',selectedPanelname);
 
 
@@ -126,8 +125,7 @@ function InitLeftMenu() {
 		var icon = $(this).find('.icon').attr('class');
 
 		var third = find(menuid);
-		if(third && third.child && third.child.length>0)
-		{
+		if(third && third.child && third.child.length>0){
 			$('.third_ul').slideUp();
 
 			var ul =$(this).parent().next();
@@ -138,8 +136,7 @@ function InitLeftMenu() {
 
 
 
-		}
-		else{
+		}else{
 			addTab(tabTitle,url,icon);
 			$('.navlist li div').removeClass("selected");
 			$(this).parent().addClass("selected");
@@ -149,10 +146,6 @@ function InitLeftMenu() {
 	},function(){
 		$(this).parent().removeClass("hover");
 	});
-
-
-
-
 
 	//选中第一个
 	//var panels = $('#nav').accordion('panels');
@@ -340,47 +333,33 @@ function openPwd() {
         buttons:[{
 			text:'保存',
 			iconCls: 'icon-save',
-			handler:function(){
-				//提交保存
-				
-				var oldPwd = $('#txtOldPass').val();
-				var newPwd = $('#txtNewPass').val();
-				var rePwd = $('#txtRePass').val();
-				
-				if(oldPwd == ''){
-					$.messager.alert('提示','原密码不能为空','info');
-					return;
-				}
-				
-				if(newPwd == ''){
-					$.messager.alert('提示','新密码不能为空','info');
-					return;
-				}
-				
-				if(rePwd != newPwd){
-					$.messager.alert('提示','确认密码不一致','info');
-					return;
-				}
-				
-				$.ajax({
-					url: 'emp_updatePwd',
-					data: {"oldPwd": oldPwd, "newPwd":newPwd},
-					dataType: 'json',
-					type: 'post',
-					success:function(rtn){
-						$.messager.alert('提示',rtn.message, 'info',function(){
-							if(rtn.success){
-								$('#w').dialog('close');
-								//清空内容
-								 $('#txtOldPass').val('');
-								 $('#txtNewPass').val('');
-								 $('#txtRePass').val('');
-							}
-						});
-					}
-				});
-			}
-		},{
+			handler:function() {
+                //提交保存
+                let pdata = $("#pwdForm").serializeJSON();
+
+                if (pdata.oldPwd === '') {
+                    $.messager.alert('提示', '原密码不能为空', 'info');
+                    return;
+                }
+                if (pdata.newPwd === '') {
+                    $.messager.alert('提示', '新密码不能为空', 'info');
+                    return;
+                }
+                if (pdata.newPwd !== pdata.cnewPwd) {
+                    $.messager.alert('提示', '确认密码不一致', 'info');
+                    return;
+                }
+                $.post("emp_updatePwd", pdata, function (res) {
+                    $.messager.alert('提示', res.message, 'info', function () {
+                        if (res.success) {
+                            $('#w').dialog('close');
+                            $("#pwdForm").form("clear");
+                        }
+                    });
+                },"json");
+            }
+        },
+		{
 			text:'关闭',
 			iconCls: 'icon-cancel',
 			handler:function(){

@@ -40,9 +40,8 @@ public class LoginAction {
 			//查询是否存在
 			Emp loginUser = empBiz.findByUsernameAndPwd(username, pwd);
 			if(loginUser != null){
-				//记录当前登陆的用记
 				ActionContext.getContext().getSession().put("loginUser", loginUser);
-				ajaxReturn(true, "");
+				ajaxReturn(true, "登陆成功");
 			}else{
 				ajaxReturn(false, "用户名或密码不正确");
 			}

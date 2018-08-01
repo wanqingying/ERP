@@ -8,7 +8,7 @@
 <script type="text/javascript" src="./statics/ui/jquery.min.js"></script>
 </head>
 <body>
-	
+
 <div class="easyui-panel" style="padding-left:4px;border-bottom:0px;">
 	<div style="height:2px;"></div>
 	<form id="searchForm">
@@ -26,6 +26,7 @@
 	部门：<input name="t1.dep.uuid" class="easyui-combobox" data-options="
 					url:'dep_list', textField:'name', valueField:'uuid'
 				">
+			<otion>5555</otion>
 
 		<button type="button" id="btnSearch">查询</button>
 	</form>
@@ -35,8 +36,8 @@
 <table id="modList"></table>
 
 <div id="editDiv">
-	<form id="editForm">
-			<input name="t.uuid" type="hidden"> 
+	<form id="editForm" hidden>
+			<input name="t.uuid" type="hidden">
 
 		<table>
 			<tr>
@@ -57,7 +58,7 @@
 			</tr>
 			<tr>
 				<td>邮件地址</td><td><input name="t.email" class="easyui-validatebox" data-options="
-				required:true,validType:'email',invalidMessage:'Email格式不正确'
+				validType:'email',invalidMessage:'Email格式不正确'
 				"> </td>
 			</tr>
 			<tr>
@@ -72,7 +73,8 @@
 			<tr>
 				<td>部门</td><td><input name="t.dep.uuid" class="easyui-combobox" data-options="
 					url:'dep_list', textField:'name', valueField:'uuid',required:true
-				"> </td>
+				">
+				</td>
 			</tr>
 
 		</table>
@@ -84,17 +86,17 @@
 	mod.url="emp_";
 	mod.name="员工";
 	mod.height = 300;
-	mod.width = 300;
+	mod.width = 250;
 	mod.columns=[[
 	  		    {field:'uuid',title:'编号',width:100},
 	  		    {field:'username',title:'登陆名',width:100},
 	  		    {field:'name',title:'真实姓名',width:100},
 	  		    {field:'gender',title:'性别',width:100,formatter:function(value, row, index){
 	  		    	value = row.gender;
-	  		    	if(1 == value * 1){
+	  		    	if(1 === value * 1){
 	  		    		return '男';
 	  		    	}
-	  		    	if(0 == value * 1){
+	  		    	if(0 === value * 1){
 	  		    		return '女';
 	  		    	}
 	  		    }},
@@ -109,12 +111,10 @@
 	  		    }},
 
 				{field:'-',title:'操作',width:200,formatter: function(value,row,index){
-					var oper = "<a href=\"javascript:void(0)\" onclick=\"edit(" + row.uuid + ')">修改</a>';
-					oper += ' <a href="javascript:void(0)" onclick="del(' + row.uuid + ')">删除</a>';
-					return oper;
+                        return `<a href="javascript:void(0)"  onclick="openEdit('update','编辑',${row.uuid})">编辑 </a>`+
+                            ` <a href="javascript:void(0)"  onclick="del(${row.uuid})"> 删除</a>`;
 				}}
 				]];
-
 </script>
 <script type="text/javascript" src="./statics/ui/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="./statics/ui/locale/easyui-lang-zh_CN.js"></script>

@@ -1,6 +1,4 @@
 package com.wan.erp.web.action;
-import javax.servlet.ServletContext;
-
 import com.wan.erp.biz.IEmpBiz;
 import com.wan.erp.entity.Emp;
 
@@ -11,6 +9,7 @@ import com.wan.erp.entity.Emp;
  */
 public class EmpAction extends BaseAction<Emp> {
 
+	//注入服务
 	private IEmpBiz empBiz;
 
 	public void setEmpBiz(IEmpBiz empBiz) {
@@ -37,10 +36,22 @@ public class EmpAction extends BaseAction<Emp> {
 		this.newPwd = newPwd;
 	}
 
+	//新增，删除，修改模型
+	public Emp emp;
+
+	public Emp getEmp() {
+		return emp;
+	}
+
+	public void setEmp(Emp emp) {
+		this.emp = emp;
+		super.setT(emp);
+	}
+	
 	/**
 	 * 修改密码调用的方法
 	 */
-	/*public void updatePwd(){
+	public void updatePwd(){
 		Emp loginUser = getLoginUser();
 		//session是否会超时，用户是否登陆过了
 		if(null == loginUser){
@@ -54,12 +65,12 @@ public class EmpAction extends BaseAction<Emp> {
 			e.printStackTrace();
 			ajaxReturn(false, "修改密码失败");
 		}
-	}*/
+	}
 	
 	/**
 	 * 重置密码调用的方法
 	 */
-	/*public void updatePwd_reset(){
+	public void updatePwd_reset(){
 		
 		try {
 			empBiz.updatePwd_reset(getId(), newPwd);
@@ -68,5 +79,5 @@ public class EmpAction extends BaseAction<Emp> {
 			e.printStackTrace();
 			ajaxReturn(false, "重置密码失败");
 		}
-	}*/
+	}
 }

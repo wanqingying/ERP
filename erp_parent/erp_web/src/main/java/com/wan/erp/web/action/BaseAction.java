@@ -86,7 +86,6 @@ public class BaseAction<T> {
 		Map<String, Object> mapData = new HashMap<String, Object>();
 		mapData.put("total", total);
 		mapData.put("rows", list);
-		//把部门列表转JSON字符串
 		//DisableCircularReferenceDetect禁用循环引用保护
 		String listString = JSON.toJSONString(mapData, SerializerFeature.DisableCircularReferenceDetect);
 		write(listString);
@@ -105,19 +104,13 @@ public class BaseAction<T> {
 	 * @param jsonString
 	 */
 	public void add(){
-		//{"success":true,"message":""}
-		//返回前端的JSON数据
-		Map<String, Object> rtn = new HashMap<String, Object>();
 		try {
 			baseBiz.add(t);
-			rtn.put("success",true);
-			rtn.put("message","新增成功");
+			ajaxReturn(true, "添加成功");
 		} catch (Exception e) {
 			e.printStackTrace();
-			rtn.put("success",false);
-			rtn.put("message","新增失败");
+			ajaxReturn(false, "添加失败");
 		}
-		write(JSON.toJSONString(rtn));
 	}
 	
 	private long id;
@@ -149,7 +142,6 @@ public class BaseAction<T> {
 		T t = baseBiz.get(id);
 		String jsonString = JSON.toJSONStringWithDateFormat(t,"yyyy-MM-dd");
 		System.out.println("转换前：" + jsonString);
-		//{"name":"管理员组","tele":"000011","uuid":1}
 		String jsonStringAfter = mapData(jsonString, "t");
 		System.out.println("转换后：" + jsonStringAfter);
 		write(jsonStringAfter);
@@ -160,6 +152,7 @@ public class BaseAction<T> {
 	 */
 	public void update(){
 		try {
+			System.out.println("ent:"+t);
 			baseBiz.update(t);
 			ajaxReturn(true, "修改成功");
 		} catch (Exception e) {
@@ -172,6 +165,7 @@ public class BaseAction<T> {
 	 * @param jsonString JSON数据字符串
 	 * @param prefix 要加上的前缀
 	 */
+	@SuppressWarnings("unchecked")
 	public String mapData(String jsonString, String prefix){
 		Map<String, Object> map = JSON.parseObject(jsonString);
 		

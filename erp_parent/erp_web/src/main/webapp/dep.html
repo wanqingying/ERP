@@ -14,12 +14,12 @@
 <body>
     <form id="searchForm">
         <div>
-            <label for="">部门名称:</label>
-            <input type="text" name="dep1.name">
+            <label for="name">部门名称:</label>
+            <input id="name" type="text" name="t1.name">
         </div>
         <div>
-            <label for="">部门电话:</label>
-            <input type="text" name="dep1.tele">
+            <label for="tele">部门电话:</label>
+            <input id="tele" type="text" name="t1.tele">
         </div>
         <div>
             <button id="btnSearch">查询</button>
@@ -28,57 +28,38 @@
     
     <table id="modList"></table>
 
-    <div id="addcontent">
-        <div id="addDiv">
-            <form id="addform" action="">
-                <div>
-                    <label for="">部门名称:</label>
-                    <input type="text" name="dep.name">
-                </div>
-                <div>
-                    <label for="">部门电话:</label>
-                    <input type="text" name="dep.tele">
-                </div>
-                <div>
-                    <button id="btnadd">保存</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
     <div id="editDiv">
-            <form id="editform" action="">
+            <form id="editForm" action="" hidden>
                 <div>
-                        <label for="">部门编号:</label>
-                        <input type="text" name="dep.uuid" readonly>
+                        <label for="uuid" hidden>部门编号:</label>
+                        <input id="uuid" type="text" name="t.uuid" hidden>
                 </div>
                 <div>
-                    <label for="">部门名称:</label>
-                    <input type="text" name="dep.name" >
+                    <label for="ame">部门名称:</label>
+                    <input id="ame" type="text" name="t.name" >
                 </div>
                 <div>
-                    <label for="">部门电话:</label>
-                    <input type="text" name="dep.tele">
+                    <label for="Telephone">部门电话:</label>
+                    <input id="Telephone" type="text" name="t.tele">
                 </div>
                 <div>
-                    <button id="btnedit">保存</button>
+                    <button id="btnSave">保存</button>
                 </div>
             </form>
         </div>
         
     <script>
         let mod={
-            url:"dep_",
-            name:"部门",
-            id:"uuid",
+            url:"dep_",engName:"dep",name:"部门",id:"id",
+            width:300,height:200,
             columns:[[    
                                 {field:'uuid',title:'部门编号',width:100},    
                                 {field:'name',title:'部门名称',width:100},    
                                 {field:'tele',title:'部门电话',width:100},
                                 {field:'-',title:'操作',width:100,
                                     formatter: function(value,row,index){
-                                        return `<a href="javascript:void(0)" onclick="edit(${row.uuid})">编辑 </a>`+
-                                        ` <a href="javascript:void(0)" onclick="del(${row.uuid})"> 删除</a>`;
+                                        return `<a href="javascript:void(0)"  onclick="openEdit('update','编辑',${row.uuid})">编辑 </a>`+
+                                        ` <a href="javascript:void(0)"  onclick="del(${row.uuid})"> 删除</a>`;
                                     }
                                 },
                             ]],
